@@ -7,14 +7,14 @@ import {
 } from 'react-native';
 import IBeacon from './IBeacon';
 
-interface BluetoothLowEnergyApi {
+interface Tilt {
   startScan(): void;
   temperature?: number | null;
   gravity?: number | null;
   device?: string | null;
 }
 
-export function useBLE(): BluetoothLowEnergyApi {
+export function useTilt(): Tilt {
   const [temperature, setTemperature] = useState<number | null>(null);
   const [gravity, setGravity] = useState<number | null>(null);
   const [device, setDevice] = useState<string | null>(null);

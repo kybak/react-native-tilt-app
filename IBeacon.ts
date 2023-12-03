@@ -6,7 +6,6 @@ interface IBeacon {
     error: (data: any) => void,
   ): void;
   stopScanning: () => void;
-  triggerEvent: () => void;
 }
 
 const {IBeacon} = NativeModules;

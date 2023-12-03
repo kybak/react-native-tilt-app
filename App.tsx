@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {useBLE} from './useBLE';
+import {useTilt} from './useTilt';
 
 function App() {
-  const {startScan, temperature, gravity, device} = useBLE();
+  const {startScan, temperature, gravity, device} = useTilt();
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
