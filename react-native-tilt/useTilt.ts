@@ -1,31 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   PermissionsAndroid,
   NativeModules,
   NativeEventEmitter,
   Platform,
-} from 'react-native';
-import IBeacon from './IBeacon';
+} from "react-native";
+import IBeaconTilt from "./IBeaconTilt";
 
 interface Tilt {
   startScan(): void;
   temperature?: number | null;
   gravity?: number | null;
   device?: string | null;
+  scanning?: boolean | null;
 }
 
 export function useTilt(): Tilt {
   const [temperature, setTemperature] = useState<number | null>(null);
   const [gravity, setGravity] = useState<number | null>(null);
   const [device, setDevice] = useState<string | null>(null);
+  const [scanning, setScanning] = useState<boolean | null>(false);
 
   const startScan = async () => {
     const allowed = await requestPermissions();
+
     if (allowed) {
-      IBeacon.startScanning(
+      console.log("Scanning...");
+      setScanning(true);
+
+      IBeaconTilt.startScanning(
         data => {},
         error => {
-          console.error('Scan error:', error);
+          setScanning(false);
+          console.error("Scan error:", error);
         },
       );
     }
@@ -33,7 +40,7 @@ export function useTilt(): Tilt {
 
   useEffect(() => {
     const eventEmitter = new NativeEventEmitter(NativeModules.IBeacon);
-    let eventListener = eventEmitter.addListener('onScanResults', event => {
+    let eventListener = eventEmitter.addListener("onScanResults", event => {
       if (event.device) {
         console.log(`iBeacon data:`, event);
         setDevice(event.device);
@@ -43,7 +50,7 @@ export function useTilt(): Tilt {
     });
 
     return () => {
-      IBeacon.stopScanning();
+      IBeaconTilt.stopScanning();
       eventListener.remove();
     };
   }, []);
@@ -52,48 +59,48 @@ export function useTilt(): Tilt {
     const bluetoothScanPermission = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN,
       {
-        title: 'Scan Permission',
-        message: 'Bluetooth Low Energy requires Scan',
-        buttonPositive: 'OK',
+        title: "Scan Permission",
+        message: "Bluetooth Low Energy requires Scan",
+        buttonPositive: "OK",
       },
     );
     const bluetoothConnectPermission = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
       {
-        title: 'Connect Permission',
-        message: 'Bluetooth Low Energy requires Connect',
-        buttonPositive: 'OK',
+        title: "Connect Permission",
+        message: "Bluetooth Low Energy requires Connect",
+        buttonPositive: "OK",
       },
     );
     const fineLocationPermission = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       {
-        title: 'Location Permission',
-        message: 'Bluetooth Low Energy requires Location',
-        buttonPositive: 'OK',
+        title: "Location Permission",
+        message: "Bluetooth Low Energy requires Location",
+        buttonPositive: "OK",
       },
     );
 
     const coarseLocationPermission = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
       {
-        title: 'Location Permission',
-        message: 'Bluetooth Low Energy requires Coarse Location',
-        buttonPositive: 'OK',
+        title: "Location Permission",
+        message: "Bluetooth Low Energy requires Coarse Location",
+        buttonPositive: "OK",
       },
     );
 
     return (
-      bluetoothScanPermission === 'granted' &&
-      bluetoothConnectPermission === 'granted' &&
-      fineLocationPermission === 'granted' &&
-      coarseLocationPermission === 'granted'
+      bluetoothScanPermission === "granted" &&
+      bluetoothConnectPermission === "granted" &&
+      fineLocationPermission === "granted" &&
+      coarseLocationPermission === "granted"
     );
   };
 
   const requestPermissions = async (): Promise<boolean> => {
     return new Promise(async function (resolve, reject) {
-      if (Platform.OS === 'android') {
+      if (Platform.OS === "android") {
         const allowed = await requestAndroidPermissions();
 
         resolve(allowed);
@@ -101,5 +108,5 @@ export function useTilt(): Tilt {
     });
   };
 
-  return {startScan, temperature, gravity, device};
+  return { startScan, scanning, temperature, gravity, device };
 }

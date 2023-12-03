@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface TiltReactNativeAppTests : XCTestCase
+@interface ReactNativeTiltAppTests : XCTestCase
 
 @end
 
-@implementation TiltReactNativeAppTests
+@implementation ReactNativeTiltAppTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

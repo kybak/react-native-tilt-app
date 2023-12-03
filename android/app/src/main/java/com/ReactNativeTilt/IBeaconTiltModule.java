@@ -1,4 +1,4 @@
-package com.tiltreactnativeapp;
+package com.reactnativetilt;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -26,14 +26,14 @@ import android.content.Context;
 import android.os.Build;
 
 
-public class IBeaconModule extends ReactContextBaseJavaModule {
+public class IBeaconTiltModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
     private BluetoothAdapter bluetoothAdapter;
     private BluetoothLeScanner bluetoothLeScanner;
     private Map<String, String> uuidToColorMap;
 
-    public IBeaconModule(ReactApplicationContext reactContext) {
+    public IBeaconTiltModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
         initializeBluetooth();
@@ -66,7 +66,7 @@ public class IBeaconModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "IBeacon";
+        return "IBeaconTilt";
     }
 
     public void sendEvent(WritableMap payload) {
@@ -117,7 +117,7 @@ public class IBeaconModule extends ReactContextBaseJavaModule {
         // ScanSettings settings = new ScanSettings.Builder()
         // .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
         // .build();
-        bluetoothLeScanner.startScan();
+        bluetoothLeScanner.startScan(null, new ScanSettings.Builder().build(), leScanCallback);
     }
 
     @ReactMethod

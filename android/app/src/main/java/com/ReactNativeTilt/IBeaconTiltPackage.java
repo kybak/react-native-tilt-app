@@ -1,4 +1,4 @@
-package com.tiltreactnativeapp;
+package com.reactnativetilt;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class IBeaconPackage implements ReactPackage {
+public class IBeaconTiltPackage implements ReactPackage {
 
    @Override
    public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
@@ -20,7 +20,7 @@ public class IBeaconPackage implements ReactPackage {
            ReactApplicationContext reactContext) {
        List<NativeModule> modules = new ArrayList<>();
 
-       modules.add(new IBeaconModule(reactContext));
+       modules.add(new IBeaconTiltModule(reactContext));
 
        return modules;
    }

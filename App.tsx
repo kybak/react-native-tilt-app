@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -7,14 +7,14 @@ import {
   Text,
   useColorScheme,
   View,
-} from 'react-native';
+} from "react-native";
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {useTilt} from './useTilt';
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import { useTilt } from "./react-native-tilt/useTilt";
 
 function App() {
-  const {startScan, temperature, gravity, device} = useTilt();
-  const isDarkMode = useColorScheme() === 'dark';
+  const { startScan, scanning, temperature, gravity, device } = useTilt();
+  const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -27,7 +27,7 @@ function App() {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <ScrollView
@@ -36,9 +36,9 @@ function App() {
         <View
           style={{
             flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           {temperature && gravity && (
@@ -61,20 +61,20 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
-    fontWeight: '400',
+    fontWeight: "400",
   },
   highlight: {
-    fontWeight: '700',
+    fontWeight: "700",
   },
   headerText: {
     fontSize: 40, // Adjust the font size for bigger text
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     margin: 10,
     color: Colors.white, // You can change the color
   },
