@@ -1,7 +1,5 @@
 package com.tiltreactnativeapp;
 
-import java.util.Arrays;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.BluetoothLeScanner;
@@ -9,8 +7,8 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanRecord;
 import android.bluetooth.le.ScanSettings;
-import android.util.Base64;
 import android.util.SparseArray;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.HashMap;
@@ -26,10 +24,7 @@ import com.facebook.react.bridge.Arguments;
 
 import android.content.Context;
 import android.os.Build;
-import androidx.annotation.RequiresApi;
 
-import org.json.JSONObject;
-import org.json.JSONArray;
 
 public class IBeaconModule extends ReactContextBaseJavaModule {
 
@@ -99,7 +94,6 @@ public class IBeaconModule extends ReactContextBaseJavaModule {
 
                 ScanRecord scanRecord = result.getScanRecord();
                 if (scanRecord != null) {
-                    // Manufacturer Specific Data (Example)
                     SparseArray<byte[]> manufacturerData = scanRecord.getManufacturerSpecificData();
                     if (manufacturerData != null && manufacturerData.size() > 0) {
                         parseBeaconData(scanRecord, payload);
